@@ -86,7 +86,7 @@
     }
 
     .bg-ornament {
-      position: absolute;
+      position: absolute !important;
       width: 140px;
       height: 140px;
       color: var(--gold);
@@ -100,7 +100,7 @@
     .bg-ornament-br { bottom: -10px; right: -10px; transform: scale(-1, -1); }
     
     .micro-particle {
-      position: absolute;
+      position: absolute !important;
       width: 2px; height: 2px;
       background: var(--gold);
       border-radius: 50%;
@@ -118,7 +118,7 @@
     }
 
     .css-leaf {
-      position: absolute;
+      position: absolute !important;
       top: -20px;
       width: 14px; height: 14px;
       background: var(--gold);
@@ -158,10 +158,9 @@
     }
 
     .splash-mono {
-      font-family: var(--font-serif);
-      font-size: clamp(5rem, 22vw, 9rem);
-      font-weight: 700;
-      letter-spacing: 0.18em;
+      font-family: var(--font-script);
+      font-size: clamp(3rem, 15vw, 6.5rem);
+      font-weight: 400;
       color: var(--gold);
       opacity: 0;
       animation: splashFade 1s var(--ease-out) 0.2s forwards;
@@ -243,6 +242,17 @@
     .reveal.vis, .reveal-left.vis, .reveal-right.vis {
       opacity: 1;
       transform: none;
+      filter: blur(0);
+    }
+    
+    /* Variação especial para o countdown sem transform */
+    .reveal-cd {
+      opacity: 0;
+      filter: blur(10px);
+      transition: opacity 1.2s var(--ease-out), filter 1.2s var(--ease-out);
+    }
+    .reveal-cd.vis {
+      opacity: 1;
       filter: blur(0);
     }
     .d1 { transition-delay: 0.12s; }
@@ -439,7 +449,11 @@
     ═══════════════════════════════════════════ */
     #countdown {
       background: radial-gradient(circle at 50% 100%, #102d1a 0%, var(--black) 80%);
-      justify-content: center;
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: center !important;
+      align-items: center !important;
+      height: 100dvh !important;
       gap: 0;
     }
 
@@ -452,7 +466,10 @@
       z-index: 0;
     }
 
-    #countdown > * { position: relative; z-index: 1; }
+    #countdown > .typographic-ornament,
+    #countdown > .cd-title,
+    #countdown > .cd-grid,
+    #countdown > .cd-dateline { position: relative; z-index: 1; }
 
     .typographic-ornament {
       font-family: var(--font-serif);
@@ -1230,25 +1247,8 @@
     }
 
     /* ═══════════════════════════════════════════
-       SECTION 6 — CLOSING & CAPELOS
+       CAPELOS
     ═══════════════════════════════════════════ */
-    #closing { background: var(--black); justify-content: center; }
-    .closing-bg { position: absolute; inset: -40px; z-index: 0; transform: translate3d(calc(var(--mx, 0) * -15px), calc(var(--my, 0) * -15px + var(--closing-sy, 0px)), 0); will-change: transform; }
-    .closing-bg img { width: 100%; height: 100%; object-fit: cover; object-position: center top; filter: blur(10px) brightness(0.2); transform: scale(1.06); }
-    .closing-ov { position: absolute; inset: 0; z-index: 1; background: radial-gradient(circle at center, rgba(10,26,16,0.9) 0%, transparent 80%); }
-    .closing-mist { position: absolute; bottom: 0; left: 0; width: 100%; height: 50%; z-index: 1; background: linear-gradient(to top, rgba(21, 69, 38, 0.4), transparent); animation: mistPulse 8s infinite alternate ease-in-out; pointer-events: none; }
-    @keyframes mistPulse { 0% { opacity: 0.5; } 100% { opacity: 1; } }
-    #closing-canvas { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
-    .closing-inner { position: relative; z-index: 3; display: flex; flex-direction: column; align-items: center; gap: 1.4rem; text-align: center; padding: 2rem 2rem; }
-    .closing-arabesque { color: var(--gold); }
-    .closing-arabesque svg { width: 110px; opacity: 0.85; }
-    .closing-phrase { font-family: var(--font-serif); font-size: clamp(1.15rem, 4.8vw, 1.65rem); font-weight: 300; font-style: italic; color: var(--cream); line-height: 1.65; max-width: 310px; }
-    .closing-sig-wrap { display: flex; flex-direction: column; align-items: center; gap: 0.4rem; }
-    .closing-sig { font-family: var(--font-script); font-size: clamp(2.6rem, 10vw, 4rem); color: var(--gold); text-shadow: 0 2px 18px rgba(201,168,76,0.3); }
-    .sig-line { width: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); transition: width 1.4s var(--ease-out) 0.4s; }
-    .closing-sig-wrap.vis .sig-line { width: 160px; }
-    .closing-year { display: flex; align-items: center; gap: 1.4rem; font-family: var(--font-serif); font-size: clamp(1.8rem, 7vw, 2.6rem); font-weight: 700; color: var(--gold-lt); letter-spacing: 0.3em; }
-    .closing-year::before, .closing-year::after { content: ''; display: block; width: 36px; height: 1px; background: var(--gold); }
 
     .capelo-svg { color: var(--gold); display: block; }
     .cap-draw-path { stroke-dasharray: 120; stroke-dashoffset: 120; }
@@ -1283,15 +1283,19 @@
 <div id="menu-overlay" aria-hidden="true">
   <div class="menu-content">
     <a href="#hero" class="menu-link">Início</a>
+    <a href="#prof-honor" class="menu-link">Convite Especial</a>
+    <a href="#prof-gallery" class="menu-link">Galeria</a>
+    <a href="#countdown" class="menu-link">Contagem Regressiva</a>
     <a href="#event" class="menu-link">O Evento</a>
     <a href="#rsvp" class="menu-link">Aceitar o Convite</a>
+    <a href="#prof-quote" class="menu-link">Mensagem</a>
   </div>
 </div>
 <!-- ════════════════════════════════
      SPLASH SCREEN
 ════════════════════════════════ -->
 <div id="splash" role="presentation">
-  <div class="splash-mono">LP</div>
+  <div class="splash-mono">Estética</div>
   <svg class="capelo-svg capelo-splash" viewBox="0 0 100 60" fill="none" stroke="currentColor" stroke-width="1.2" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path class="cap-draw-path" d="M50 8 L85 22 L50 36 L15 22 Z" /><path class="cap-draw-path" d="M28 27 V38 C 28 45, 72 45, 72 38 V27" /><circle cx="50" cy="22" r="1.5" fill="currentColor"/><path class="cap-draw-path" d="M50 22 Q 65 30, 68 45" /><path d="M66 45 L70 45 L69 52 L67 52 Z" fill="currentColor"/></svg>
   <div class="splash-line"></div>
   <div class="splash-tagline">Estética &amp; Cosmética · 2026</div>
@@ -1302,7 +1306,6 @@
 ════════════════════════════════ -->
 <nav id="scroll-nav" aria-label="Navegação de seções">
   <div class="nav-dot active"></div>
-  <div class="nav-dot"></div>
   <div class="nav-dot"></div>
   <div class="nav-dot"></div>
   <div class="nav-dot"></div>
@@ -1340,7 +1343,7 @@
   </section>
 
   <!-- ──── CONVITE ESPECIAL (PROFESSORES) ──── -->
-  <section class="prof-honor" aria-label="Convite Especial">
+  <section id="prof-honor" class="prof-honor" aria-label="Convite Especial">
     <div class="prof-honor-content reveal">
       <div class="prof-honor-eyebrow-wrap">
         <svg class="capelo-svg capelo-honor-left" viewBox="0 0 100 60" fill="none" stroke="currentColor" stroke-width="1.2" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path class="cap-draw-path" d="M50 8 L85 22 L50 36 L15 22 Z" /><path class="cap-draw-path" d="M28 27 V38 C 28 45, 72 45, 72 38 V27" /><circle cx="50" cy="22" r="1.5" fill="currentColor"/><path class="cap-draw-path" d="M50 22 Q 65 30, 68 45" /><path d="M66 45 L70 45 L69 52 L67 52 Z" fill="currentColor"/></svg>
@@ -1355,7 +1358,7 @@
   </section>
 
   <!-- ──── GALERIA DE FOTOS (PROFESSORES) ──── -->
-  <section class="prof-gallery" aria-label="Galeria de Fotos">
+  <section id="prof-gallery" class="prof-gallery" aria-label="Galeria de Fotos">
     <div class="prof-gallery-content reveal">
       <h2 class="prof-gallery-title">Uma jornada que você fez parte</h2>
       <div class="prof-gallery-grid">
@@ -1371,17 +1374,21 @@
           <img src="img/turma de beca.jpg" alt="Turma de Beca" loading="lazy">
           <figcaption class="prof-gallery-caption">A conquista que celebramos juntos.</figcaption>
         </figure>
+        <figure class="prof-gallery-card">
+          <img src="img/praia.jpg" alt="Foto na Praia" loading="lazy">
+          <figcaption class="prof-gallery-caption">Momentos inesquecíveis.</figcaption>
+        </figure>
       </div>
     </div>
   </section>
 
   <!-- ──── SEÇÃO 2: COUNTDOWN ──── -->
-  <section id="countdown" aria-label="Contagem regressiva">
-    <div class="typographic-ornament reveal">— ✦ —</div>
+  <section id="countdown" class="countdown-section" aria-label="Contagem regressiva">
+    <div class="typographic-ornament reveal-cd">— ✦ —</div>
 
-    <h2 class="cd-title reveal d1">A celebração se aproxima</h2>
+    <h2 class="cd-title reveal-cd d1">A celebração se aproxima</h2>
 
-    <div class="cd-grid reveal d2" role="timer" aria-live="off" aria-label="Contagem regressiva para a formatura">
+    <div class="cd-grid reveal-cd d2" role="timer" aria-live="off" aria-label="Contagem regressiva para a formatura">
       <div class="cd-block">
         <div class="cd-num" id="cd-days">00</div>
         <div class="cd-label">Dias</div>
@@ -1400,9 +1407,9 @@
       </div>
     </div>
 
-    <div class="cd-dateline reveal d3" aria-hidden="true">02 &middot; AGO &middot; 2026 &middot; 15h00</div>
+    <div class="cd-dateline reveal-cd d3" aria-hidden="true">02 &middot; AGO &middot; 2026 &middot; 15h00</div>
 
-    <div class="typographic-ornament reveal d4">— ✦ —</div>
+    <div class="typographic-ornament reveal-cd d4">— ✦ —</div>
   </section>
 
 
@@ -1486,7 +1493,7 @@
   </section>
 
   <!-- ──── CITAÇÃO (PROFESSORES) ──── -->
-  <section class="prof-quote-section" aria-label="Citação">
+  <section id="prof-quote" class="prof-quote-section" aria-label="Citação">
     <div class="prof-quote-content reveal">
       <p class="prof-quote">Um grande mestre não apenas ensina técnicas; inspira sonhos, desperta talentos e transforma vidas. Obrigado(a) por fazer parte da nossa história.</p>
       <svg class="capelo-svg capelo-quote" viewBox="0 0 100 60" fill="none" stroke="currentColor" stroke-width="1.2" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path class="cap-draw-path" d="M50 8 L85 22 L50 36 L15 22 Z" /><path class="cap-draw-path" d="M28 27 V38 C 28 45, 72 45, 72 38 V27" /><circle cx="50" cy="22" r="1.5" fill="currentColor"/><path class="cap-draw-path" d="M50 22 Q 65 30, 68 45" /><path d="M66 45 L70 45 L69 52 L67 52 Z" fill="currentColor"/></svg>
@@ -1494,40 +1501,7 @@
     </div>
   </section>
 
-  <!-- ──── SEÇÃO 6: ENCERRAMENTO ──── -->
-  <section id="closing" aria-label="Encerramento">
-    <div class="closing-bg">
-      <img src="img/closing.jpg" alt="" aria-hidden="true">
-    </div>
-    <div class="closing-ov" aria-hidden="true"></div>
-    <canvas id="closing-canvas" aria-hidden="true"></canvas>
 
-    <div class="closing-inner">
-      <div class="closing-arabesque reveal">
-        <svg class="capelo-svg capelo-closing-main" viewBox="0 0 100 60" fill="none" stroke="currentColor" stroke-width="1.2" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path class="cap-draw-path" d="M50 8 L85 22 L50 36 L15 22 Z" /><path class="cap-draw-path" d="M28 27 V38 C 28 45, 72 45, 72 38 V27" /><circle cx="50" cy="22" r="1.5" fill="currentColor"/><path class="cap-draw-path" d="M50 22 Q 65 30, 68 45" /><path d="M66 45 L70 45 L69 52 L67 52 Z" fill="currentColor"/></svg>
-        <svg viewBox="0 0 130 52" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path d="M8 26 Q33 4 65 26 Q97 48 122 26" stroke="currentColor" stroke-width="0.9" fill="none"/>
-          <path d="M8 26 Q33 48 65 26 Q97 4 122 26" stroke="currentColor" stroke-width="0.9" fill="none" opacity="0.45"/>
-          <circle cx="65" cy="26" r="3.5" fill="currentColor"/>
-          <circle cx="8"  cy="26" r="1.8" fill="currentColor"/>
-          <circle cx="122" cy="26" r="1.8" fill="currentColor"/>
-          <line x1="8" y1="26" x2="0" y2="26" stroke="currentColor" stroke-width="0.6"/>
-          <line x1="122" y1="26" x2="130" y2="26" stroke="currentColor" stroke-width="0.6"/>
-        </svg>
-      </div>
-
-      <p class="closing-phrase reveal d1">
-        &ldquo;Que este diploma seja apenas o primeiro capítulo de uma história extraordinária.&rdquo;
-      </p>
-
-      <div class="closing-sig-wrap reveal d2" id="closing-sig-wrap">
-        <div class="closing-sig">Ludmila Paixão</div>
-        <span class="sig-line"></span>
-      </div>
-
-      <div class="closing-year reveal d4">2026</div>
-    </div>
-  </section>
 
 
 
@@ -1753,7 +1727,7 @@ setInterval(updateCD, 1000);
 
 
 /* ── INTERSECTION OBSERVER ──────────────────────────── */
-const revEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+const revEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-cd');
 const io = new IntersectionObserver(entries => {
   entries.forEach(e => {
     if (e.isIntersecting) {
@@ -1866,75 +1840,7 @@ function scrollToRsvp(e) {
   if (rsvpSec) rsvpSec.scrollIntoView({ behavior: 'smooth' });
 }
 
-/* ── LEAVES ENCERRAMENTO ──────────────────────────── */
-const cvs = document.getElementById('closing-canvas');
-if (cvs) {
-  const ctx = cvs.getContext('2d');
-  let w, h;
-  const leaves = [];
-  const colors = ['#C9A84C', '#987B2E', '#102d1a', '#154526'];
-  let animationId;
 
-  function resizeClosing() {
-    w = cvs.width = window.innerWidth;
-    h = cvs.height = window.innerHeight;
-  }
-  window.addEventListener('resize', resizeClosing);
-  resizeClosing();
-
-  class Leaf {
-    constructor() {
-      this.x = Math.random() * w;
-      this.y = Math.random() * h - h;
-      this.size = Math.random() * 5 + 3;
-      this.speedY = Math.random() * 1.5 + 0.5;
-      this.speedX = Math.random() * 2 - 1;
-      this.color = colors[Math.floor(Math.random() * colors.length)];
-      this.angle = Math.random() * 360;
-      this.spin = Math.random() * 0.05 - 0.025;
-    }
-    update() {
-      this.y += this.speedY;
-      this.x += this.speedX + Math.sin(this.y * 0.01) * 0.5;
-      this.angle += this.spin;
-      if (this.y > h) {
-        this.y = -10;
-        this.x = Math.random() * w;
-      }
-    }
-    draw() {
-      ctx.save();
-      ctx.translate(this.x, this.y);
-      ctx.rotate(this.angle);
-      ctx.fillStyle = this.color;
-      ctx.globalAlpha = 0.6;
-      ctx.beginPath();
-      ctx.ellipse(0, 0, this.size, this.size / 2, 0, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.restore();
-    }
-  }
-  for(let i=0; i<45; i++) leaves.push(new Leaf());
-
-  function animateLeaves() {
-    ctx.clearRect(0, 0, w, h);
-    leaves.forEach(l => { l.update(); l.draw(); });
-    animationId = requestAnimationFrame(animateLeaves);
-  }
-
-  const closingSigIo = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('vis');
-        animateLeaves();
-        closingSigIo.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.3 });
-
-  const sigWrap = document.getElementById('closing-sig-wrap');
-  if(sigWrap) closingSigIo.observe(sigWrap);
-}
 
 /* ── MICRO-PARTICLES E ORNAMENTOS (GLOBAL) ──────────── */
 const svgString = `<svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M0,0 C80,0 120,40 180,120 M0,0 C0,80 40,120 120,180" /><path d="M60,20 C80,10 90,30 60,40 C40,50 30,30 60,20 Z" /><path d="M20,60 C10,80 30,90 40,60 C50,40 30,30 20,60 Z" /><path d="M100,50 C120,40 130,60 100,70 C80,80 70,60 100,50 Z" /><path d="M50,100 C40,120 60,130 70,100 C80,80 60,70 50,100 Z" /><path d="M140,90 C160,80 170,100 140,110 C120,120 110,100 140,90 Z" /><path d="M90,140 C80,160 100,170 110,140 C120,120 100,110 90,140 Z" /><circle cx="10" cy="10" r="4" fill="currentColor"/><circle cx="45" cy="45" r="2" fill="currentColor"/><circle cx="85" cy="85" r="2" fill="currentColor"/><circle cx="130" cy="130" r="2" fill="currentColor"/></svg>`;
