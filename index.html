@@ -69,6 +69,70 @@
         transition-duration: 0.01ms !important;
       }
       canvas { display: none !important; }
+      .bg-gradient-animated { animation: none !important; background-position: 50% 50% !important; }
+      .micro-particle { animation: none !important; }
+    }
+
+    /* ═══════════════════════════════════════════
+       ANIMATED BACKGROUNDS & ORNAMENTS
+    ═══════════════════════════════════════════ */
+    .bg-gradient-animated {
+      background-size: 200% 200%;
+      animation: gradientShift 12s ease-in-out infinite alternate;
+    }
+    @keyframes gradientShift {
+      0% { background-position: 0% 0%; }
+      100% { background-position: 100% 100%; }
+    }
+
+    .bg-ornament {
+      position: absolute;
+      width: 140px;
+      height: 140px;
+      color: var(--gold);
+      opacity: 0.04;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .bg-ornament-tl { top: -10px; left: -10px; }
+    .bg-ornament-tr { top: -10px; right: -10px; transform: scaleX(-1); }
+    .bg-ornament-bl { bottom: -10px; left: -10px; transform: scaleY(-1); }
+    .bg-ornament-br { bottom: -10px; right: -10px; transform: scale(-1, -1); }
+    
+    .micro-particle {
+      position: absolute;
+      width: 2px; height: 2px;
+      background: var(--gold);
+      border-radius: 50%;
+      opacity: 0.15;
+      pointer-events: none;
+      animation: floatParticle 20s infinite alternate ease-in-out;
+      z-index: 0;
+    }
+    @keyframes floatParticle {
+      0% { transform: translate(0, 0); }
+      25% { transform: translate(15px, 20px); }
+      50% { transform: translate(-10px, 35px); }
+      75% { transform: translate(5px, -15px); }
+      100% { transform: translate(-20px, -25px); }
+    }
+
+    .css-leaf {
+      position: absolute;
+      top: -20px;
+      width: 14px; height: 14px;
+      background: var(--gold);
+      border-radius: 14px 0 14px 0;
+      opacity: 0.12;
+      pointer-events: none;
+      animation: cssLeafFall 20s linear infinite;
+      z-index: 1;
+    }
+    @keyframes cssLeafFall {
+      0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+      10% { opacity: 0.4; }
+      90% { opacity: 0.4; }
+      100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
     }
 
     /* ═══════════════════════════════════════════
@@ -151,6 +215,8 @@
       flex-direction: column;
       align-items: center;
       justify-content: flex-end;
+      background-size: 200% 200% !important;
+      animation: gradientShift 12s ease-in-out infinite alternate;
     }
 
     /* ═══════════════════════════════════════════
@@ -190,7 +256,7 @@
     ═══════════════════════════════════════════ */
     #hero {
       justify-content: flex-end;
-      background: var(--black);
+      background: radial-gradient(circle at 20% 30%, #0c2014 0%, var(--black) 100%);
     }
 
     #hero-canvas {
@@ -236,7 +302,14 @@
           rgba(10,10,10,0.05) 55%,
           rgba(10,10,10,0.85) 80%,
           rgba(10,10,10,1)    100%
-        );
+        ),
+        radial-gradient(circle at center, transparent 40%, rgba(0,0,0,0.7) 100%);
+      pointer-events: none;
+      animation: pulseVignette 5s infinite alternate ease-in-out;
+    }
+    @keyframes pulseVignette {
+      0% { opacity: 0.7; }
+      100% { opacity: 1; }
     }
 
     .hero-year {
@@ -365,7 +438,7 @@
        SECTION 2 — COUNTDOWN
     ═══════════════════════════════════════════ */
     #countdown {
-      background: radial-gradient(circle at 50% 100%, var(--green) 0%, var(--black) 80%);
+      background: radial-gradient(circle at 50% 100%, #102d1a 0%, var(--black) 80%);
       justify-content: center;
       gap: 0;
     }
@@ -374,7 +447,7 @@
       content: '';
       position: absolute;
       inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+      background: radial-gradient(circle at 50% 0%, rgba(201,168,76, 0.18) 0%, transparent 60%);
       pointer-events: none;
       z-index: 0;
     }
@@ -475,7 +548,7 @@
        SECTION 3 — EVENT DETAILS
     ═══════════════════════════════════════════ */
     #event {
-      background: var(--black2);
+      background: linear-gradient(45deg, var(--black) 0%, #0c2615 50%, var(--black) 100%);
       justify-content: center;
       padding: 2.5rem 1.8rem;
       gap: 0;
@@ -581,7 +654,7 @@
        SECTION RSVP (TOPO)
     ═══════════════════════════════════════════ */
     #rsvp {
-      background: linear-gradient(to bottom, var(--black) 0%, var(--green) 50%, var(--black) 100%);
+      background: radial-gradient(circle at 20% 80%, #0f2e1a 0%, var(--black) 80%);
       height: 100dvh; /* Garante que a tela preencha tudo e elimine a barra preta da proxima seçao */
       min-height: 100dvh;
       padding: 4rem 1.2rem;
@@ -629,6 +702,15 @@
       line-height: 1.1;
     }
 
+    .rsvp-subtitle {
+      font-family: var(--font-serif);
+      font-style: italic;
+      color: var(--cream);
+      text-align: center;
+      margin-top: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
     .rsvp-sub {
       font-family: var(--font-sans);
       font-size: clamp(0.68rem, 2.8vw, 0.8rem);
@@ -644,7 +726,7 @@
       font-family: var(--font-sans);
       font-weight: 300;
       font-size: clamp(0.62rem, 2.5vw, 0.75rem);
-      color: rgba(245,240,232,0.75);
+      color: rgba(245,240,232,0.70);
       text-align: center;
       line-height: 1.55;
       padding-top: 0.5rem;
@@ -770,104 +852,7 @@
       50% { opacity: 0.5; }
     }
 
-    /* ═══════════════════════════════════════════
-       SECTION 6 — CLOSING
-    ═══════════════════════════════════════════ */
-    #closing {
-      background: var(--black);
-      justify-content: center;
-    }
 
-    .closing-bg {
-      position: absolute;
-      inset: -40px;
-      z-index: 0;
-      transform: translate3d(calc(var(--mx, 0) * -15px), calc(var(--my, 0) * -15px + var(--closing-sy, 0px)), 0);
-      will-change: transform;
-    }
-    .closing-bg img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      object-position: center top;
-      filter: blur(10px) brightness(0.2);
-      transform: scale(1.06);
-    }
-
-    .closing-ov {
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-      background: rgba(10,10,10,0.45);
-    }
-
-    #closing-canvas {
-      position: absolute;
-      inset: 0;
-      z-index: 2;
-      pointer-events: none;
-    }
-
-    .closing-inner {
-      position: relative;
-      z-index: 3;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1.4rem;
-      text-align: center;
-      padding: 2rem 2rem;
-    }
-
-    .closing-arabesque { color: var(--gold); }
-    .closing-arabesque svg { width: 110px; opacity: 0.85; }
-
-    .closing-phrase {
-      font-family: var(--font-serif);
-      font-size: clamp(1.15rem, 4.8vw, 1.65rem);
-      font-weight: 300;
-      font-style: italic;
-      color: var(--cream);
-      line-height: 1.65;
-      max-width: 310px;
-    }
-
-    .closing-sig-wrap {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.4rem;
-    }
-    .closing-sig {
-      font-family: var(--font-script);
-      font-size: clamp(2.6rem, 10vw, 4rem);
-      color: var(--gold);
-      text-shadow: 0 2px 18px rgba(201,168,76,0.3);
-    }
-    .sig-line {
-      width: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--gold), transparent);
-      transition: width 1.4s var(--ease-out) 0.4s;
-    }
-    .closing-sig-wrap.vis .sig-line { width: 160px; }
-
-    .closing-year {
-      display: flex;
-      align-items: center;
-      gap: 1.4rem;
-      font-family: var(--font-serif);
-      font-size: clamp(1.8rem, 7vw, 2.6rem);
-      font-weight: 700;
-      color: var(--gold-lt);
-      letter-spacing: 0.3em;
-    }
-    .closing-year::before,
-    .closing-year::after {
-      content: '';
-      display: block;
-      width: 36px; height: 1px;
-      background: var(--gold);
-    }
 
     /* ═══════════════════════════════════════════
        AUDIO BUTTON
@@ -1090,9 +1075,22 @@
        NEW SECTIONS (PROFESSORS)
     ═══════════════════════════════════════════ */
     .prof-honor {
-      background: var(--black);
+      background: linear-gradient(135deg, #0d2616 0%, var(--black) 50%, #091a0e 100%);
       justify-content: center;
       padding: 4rem 1.2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100dvh;
+    }
+    .prof-honor-eyebrow {
+      font-family: var(--font-sans);
+      font-weight: 300;
+      font-size: 0.75rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #F7E7CE; /* Champagne */
+      margin-bottom: 1rem;
     }
     .prof-honor-content {
       width: 100%;
@@ -1118,7 +1116,7 @@
     }
 
     .prof-gallery {
-      background: radial-gradient(ellipse at center, var(--green) 0%, var(--black) 100%);
+      background: radial-gradient(ellipse at 80% 20%, #11321d 0%, var(--black) 100%);
       justify-content: center;
       padding: 4rem 1.2rem;
     }
@@ -1195,7 +1193,7 @@
     }
 
     .prof-quote-section {
-      background: radial-gradient(circle at top, var(--green) 0%, var(--black) 80%);
+      background: linear-gradient(to bottom, var(--black) 0%, #0b2213 50%, var(--black) 100%);
       justify-content: center;
       padding: 4rem 1.2rem;
     }
@@ -1230,6 +1228,45 @@
       color: var(--gold);
       text-transform: uppercase;
     }
+
+    /* ═══════════════════════════════════════════
+       SECTION 6 — CLOSING & CAPELOS
+    ═══════════════════════════════════════════ */
+    #closing { background: var(--black); justify-content: center; }
+    .closing-bg { position: absolute; inset: -40px; z-index: 0; transform: translate3d(calc(var(--mx, 0) * -15px), calc(var(--my, 0) * -15px + var(--closing-sy, 0px)), 0); will-change: transform; }
+    .closing-bg img { width: 100%; height: 100%; object-fit: cover; object-position: center top; filter: blur(10px) brightness(0.2); transform: scale(1.06); }
+    .closing-ov { position: absolute; inset: 0; z-index: 1; background: radial-gradient(circle at center, rgba(10,26,16,0.9) 0%, transparent 80%); }
+    .closing-mist { position: absolute; bottom: 0; left: 0; width: 100%; height: 50%; z-index: 1; background: linear-gradient(to top, rgba(21, 69, 38, 0.4), transparent); animation: mistPulse 8s infinite alternate ease-in-out; pointer-events: none; }
+    @keyframes mistPulse { 0% { opacity: 0.5; } 100% { opacity: 1; } }
+    #closing-canvas { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
+    .closing-inner { position: relative; z-index: 3; display: flex; flex-direction: column; align-items: center; gap: 1.4rem; text-align: center; padding: 2rem 2rem; }
+    .closing-arabesque { color: var(--gold); }
+    .closing-arabesque svg { width: 110px; opacity: 0.85; }
+    .closing-phrase { font-family: var(--font-serif); font-size: clamp(1.15rem, 4.8vw, 1.65rem); font-weight: 300; font-style: italic; color: var(--cream); line-height: 1.65; max-width: 310px; }
+    .closing-sig-wrap { display: flex; flex-direction: column; align-items: center; gap: 0.4rem; }
+    .closing-sig { font-family: var(--font-script); font-size: clamp(2.6rem, 10vw, 4rem); color: var(--gold); text-shadow: 0 2px 18px rgba(201,168,76,0.3); }
+    .sig-line { width: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); transition: width 1.4s var(--ease-out) 0.4s; }
+    .closing-sig-wrap.vis .sig-line { width: 160px; }
+    .closing-year { display: flex; align-items: center; gap: 1.4rem; font-family: var(--font-serif); font-size: clamp(1.8rem, 7vw, 2.6rem); font-weight: 700; color: var(--gold-lt); letter-spacing: 0.3em; }
+    .closing-year::before, .closing-year::after { content: ''; display: block; width: 36px; height: 1px; background: var(--gold); }
+
+    .capelo-svg { color: var(--gold); display: block; }
+    .cap-draw-path { stroke-dasharray: 120; stroke-dashoffset: 120; }
+    .vis .cap-draw-path, .capelo-splash .cap-draw-path { animation: drawCap 1.5s ease-out forwards; }
+    @keyframes drawCap { to { stroke-dashoffset: 0; } }
+    .capelo-splash { width: 45px; margin: 1.5rem auto 0; opacity: 0; animation: fadeIn 1.2s ease 0.6s forwards; }
+    .capelo-hero-watermark { position: absolute; top: 2rem; right: -2rem; width: 280px; transform: rotate(15deg); z-index: 2; animation: fadeIn 2s ease 1s forwards; pointer-events: none; }
+    .capelo-hero-watermark .capelo-svg { color: var(--gold-lt); opacity: 0.08; }
+    .capelo-hero-watermark .cap-draw-path { stroke-dasharray: 0; stroke-dashoffset: 0; animation: none; }
+    .prof-honor-eyebrow-wrap { display: flex; align-items: center; justify-content: center; gap: 0.8rem; margin-bottom: 0; }
+    .prof-honor-eyebrow-wrap .capelo-svg { width: 35px; opacity: 0; transform: scale(0.85); transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1); }
+    .prof-honor-content.vis .prof-honor-eyebrow-wrap .capelo-svg { opacity: 0.7; transform: scale(1); }
+    .capelo-honor-left { transition-delay: 0.2s; }
+    .capelo-honor-right { transition-delay: 0.4s; }
+    .prof-honor-eyebrow { margin-bottom: 0 !important; }
+    .capelo-event-draw { width: 60px; margin: 0 auto 1.5rem; opacity: 0.9; }
+    .capelo-quote { width: 35px; margin: 1.5rem auto 0.5rem; opacity: 0.7; }
+    .capelo-closing-main { width: 70px; margin-bottom: 0.5rem; position: relative; z-index: 10; opacity: 0.9; }
   </style>
 </head>
 <body>
@@ -1255,17 +1292,10 @@
 ════════════════════════════════ -->
 <div id="splash" role="presentation">
   <div class="splash-mono">LP</div>
+  <svg class="capelo-svg capelo-splash" viewBox="0 0 100 60" fill="none" stroke="currentColor" stroke-width="1.2" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path class="cap-draw-path" d="M50 8 L85 22 L50 36 L15 22 Z" /><path class="cap-draw-path" d="M28 27 V38 C 28 45, 72 45, 72 38 V27" /><circle cx="50" cy="22" r="1.5" fill="currentColor"/><path class="cap-draw-path" d="M50 22 Q 65 30, 68 45" /><path d="M66 45 L70 45 L69 52 L67 52 Z" fill="currentColor"/></svg>
   <div class="splash-line"></div>
   <div class="splash-tagline">Estética &amp; Cosmética · 2026</div>
 </div>
-
-<!-- ════════════════════════════════
-     ÁUDIO
-════════════════════════════════ -->
-<audio id="bg-audio" loop preload="auto" autoplay>
-  <source src="audio/nicki minaj - fly ft. rihanna (tradução_legendado) [M3cdJvjGhPw].mp3" type="audio/mpeg">
-</audio>
-<button id="audio-btn" aria-label="Play/Pause música">♪</button>
 
 <!-- ════════════════════════════════
      SCROLL CONTAINER
@@ -1285,11 +1315,13 @@
 
   <!-- ──── SEÇÃO 1: CAPA ──── -->
   <section id="hero" aria-label="Capa">
+    <div class="capelo-hero-watermark">
+      <svg class="capelo-svg" viewBox="0 0 100 60" fill="none" stroke="currentColor" stroke-width="1.2" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path class="cap-draw-path" d="M50 8 L85 22 L50 36 L15 22 Z" /><path class="cap-draw-path" d="M28 27 V38 C 28 45, 72 45, 72 38 V27" /><circle cx="50" cy="22" r="1.5" fill="currentColor"/><path class="cap-draw-path" d="M50 22 Q 65 30, 68 45" /><path d="M66 45 L70 45 L69 52 L67 52 Z" fill="currentColor"/></svg>
+    </div>
     <canvas id="hero-canvas" aria-hidden="true"></canvas>
     <div class="hero-bg">
-      <img id="hero-img" src="img/hero.jpg" alt="Ludmila Paixão — formanda em Estética e Cosmética 2026" fetchpriority="high">
+      <img id="hero-img" src="img/hero.png" alt="Ludmila Paixão — formanda em Estética e Cosmética 2026" fetchpriority="high">
     </div>
-    <div class="hero-vignette" aria-hidden="true"></div>
     <div class="hero-year" aria-hidden="true">2026</div>
 
     <div class="hero-content">
@@ -1310,6 +1342,11 @@
   <!-- ──── CONVITE ESPECIAL (PROFESSORES) ──── -->
   <section class="prof-honor" aria-label="Convite Especial">
     <div class="prof-honor-content reveal">
+      <div class="prof-honor-eyebrow-wrap">
+        <svg class="capelo-svg capelo-honor-left" viewBox="0 0 100 60" fill="none" stroke="currentColor" stroke-width="1.2" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path class="cap-draw-path" d="M50 8 L85 22 L50 36 L15 22 Z" /><path class="cap-draw-path" d="M28 27 V38 C 28 45, 72 45, 72 38 V27" /><circle cx="50" cy="22" r="1.5" fill="currentColor"/><path class="cap-draw-path" d="M50 22 Q 65 30, 68 45" /><path d="M66 45 L70 45 L69 52 L67 52 Z" fill="currentColor"/></svg>
+        <p class="prof-honor-eyebrow">PROFESSOR (A)</p>
+        <svg class="capelo-svg capelo-honor-right" viewBox="0 0 100 60" fill="none" stroke="currentColor" stroke-width="1.2" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path class="cap-draw-path" d="M50 8 L85 22 L50 36 L15 22 Z" /><path class="cap-draw-path" d="M28 27 V38 C 28 45, 72 45, 72 38 V27" /><circle cx="50" cy="22" r="1.5" fill="currentColor"/><path class="cap-draw-path" d="M50 22 Q 65 30, 68 45" /><path d="M66 45 L70 45 L69 52 L67 52 Z" fill="currentColor"/></svg>
+      </div>
       <h2 class="prof-honor-title">Convite Especial</h2>
       <p class="prof-honor-body">
         Sua dedicação, conhecimento e contribuição foram essenciais para nossa formação. Por isso, temos a honra de convidá-lo(a) para integrar nossa Mesa de Honra e ser um(a) dos Professores Homenageados da Solenidade de Colação de Grau da Turma de Estética e Cosmética – 2026. Sua presença tornará este momento ainda mais significativo e inesquecível para todos nós.
@@ -1374,14 +1411,7 @@
   <section id="event" aria-label="Detalhes do evento">
 
     <div class="ev-deco reveal">
-      <svg viewBox="0 0 200 44" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <line x1="0" y1="22" x2="62" y2="22" stroke="currentColor" stroke-width="0.6"/>
-        <path d="M68 22 L78 8 L88 22 L78 36 Z" fill="none" stroke="currentColor" stroke-width="0.7" opacity="0.6"/>
-        <circle cx="100" cy="22" r="5" fill="currentColor"/>
-        <path d="M112 22 L122 8 L132 22 L122 36 Z" fill="none" stroke="currentColor" stroke-width="0.7" opacity="0.6"/>
-        <line x1="138" y1="22" x2="200" y2="22" stroke="currentColor" stroke-width="0.6"/>
-        <circle cx="100" cy="22" r="2" fill="var(--black2)"/>
-      </svg>
+      <svg class="capelo-svg capelo-event-draw" viewBox="0 0 100 60" fill="none" stroke="currentColor" stroke-width="1.2" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path class="cap-draw-path" d="M50 8 L85 22 L50 36 L15 22 Z" /><path class="cap-draw-path" d="M28 27 V38 C 28 45, 72 45, 72 38 V27" /><circle cx="50" cy="22" r="1.5" fill="currentColor"/><path class="cap-draw-path" d="M50 22 Q 65 30, 68 45" /><path d="M66 45 L70 45 L69 52 L67 52 Z" fill="currentColor"/></svg>
     </div>
 
     <p class="ev-heading reveal d1">Detalhes do Evento</p>
@@ -1433,23 +1463,18 @@
     <div class="rsvp-glass-card reveal">
       <div class="typographic-ornament">— ✦ —</div>
       <h2 class="rsvp-title">Aceite o<br>Convite</h2>
+      <p class="rsvp-subtitle">E venha fazer parte da nossa mesa de honra</p>
 
       <form class="rsvp-form" id="rsvp-form" novalidate>
         <div class="form-field" id="field-nome">
-          <input type="text" id="inp-nome" placeholder=" " autocomplete="given-name" inputmode="text">
-          <label for="inp-nome">Nome</label>
-          <span class="field-err" aria-live="polite">Por favor, informe seu nome</span>
-        </div>
-
-        <div class="form-field" id="field-sob">
-          <input type="text" id="inp-sob" placeholder=" " autocomplete="family-name" inputmode="text">
-          <label for="inp-sob">Sobrenome</label>
-          <span class="field-err" aria-live="polite">Por favor, informe seu sobrenome</span>
+          <input type="text" id="inp-nome" placeholder=" " autocomplete="name" inputmode="text">
+          <label for="inp-nome">NOME COMPLETO</label>
+          <span class="field-err" aria-live="polite">Por favor, informe seu nome completo</span>
         </div>
 
         <div class="typographic-ornament" style="font-size: 0.8rem; margin: 0.5rem 0 0;" aria-hidden="true">✦</div>
         <p class="rsvp-inst">
-          Sua presença na Mesa de Honra é muito importante para nós! Solicitamos que confirme sua participação o quanto antes, <strong>até dia 30</strong>.
+          Sua presença na Mesa de Honra é muito importante para nós! Solicitamos que confirme sua participação o quanto antes, até dia 03.
         </p>
 
         <button type="submit" class="btn-rsvp" id="btn-rsvp">
@@ -1464,6 +1489,7 @@
   <section class="prof-quote-section" aria-label="Citação">
     <div class="prof-quote-content reveal">
       <p class="prof-quote">Um grande mestre não apenas ensina técnicas; inspira sonhos, desperta talentos e transforma vidas. Obrigado(a) por fazer parte da nossa história.</p>
+      <svg class="capelo-svg capelo-quote" viewBox="0 0 100 60" fill="none" stroke="currentColor" stroke-width="1.2" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path class="cap-draw-path" d="M50 8 L85 22 L50 36 L15 22 Z" /><path class="cap-draw-path" d="M28 27 V38 C 28 45, 72 45, 72 38 V27" /><circle cx="50" cy="22" r="1.5" fill="currentColor"/><path class="cap-draw-path" d="M50 22 Q 65 30, 68 45" /><path d="M66 45 L70 45 L69 52 L67 52 Z" fill="currentColor"/></svg>
       <p class="prof-attribution">Turma de Estética e Cosmética · 2026</p>
     </div>
   </section>
@@ -1478,6 +1504,7 @@
 
     <div class="closing-inner">
       <div class="closing-arabesque reveal">
+        <svg class="capelo-svg capelo-closing-main" viewBox="0 0 100 60" fill="none" stroke="currentColor" stroke-width="1.2" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path class="cap-draw-path" d="M50 8 L85 22 L50 36 L15 22 Z" /><path class="cap-draw-path" d="M28 27 V38 C 28 45, 72 45, 72 38 V27" /><circle cx="50" cy="22" r="1.5" fill="currentColor"/><path class="cap-draw-path" d="M50 22 Q 65 30, 68 45" /><path d="M66 45 L70 45 L69 52 L67 52 Z" fill="currentColor"/></svg>
         <svg viewBox="0 0 130 52" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <path d="M8 26 Q33 4 65 26 Q97 48 122 26" stroke="currentColor" stroke-width="0.9" fill="none"/>
           <path d="M8 26 Q33 48 65 26 Q97 4 122 26" stroke="currentColor" stroke-width="0.9" fill="none" opacity="0.45"/>
@@ -1502,6 +1529,8 @@
     </div>
   </section>
 
+
+
 </div><!-- /scroll-wrap -->
 
 <script>
@@ -1510,7 +1539,6 @@
 ═══════════════════════════════════════════════════════ */
 const EVENT_DATE      = new Date('2026-08-02T15:00:00-03:00');
 const WHATSAPP_NUMBER = '5571982080832';
-const AUDIO_SRC       = 'audio/nicki minaj - fly ft. rihanna (tradução_legendado) [M3cdJvjGhPw].mp3';
 /* ══════════════════════════════════════════════════════ */
 
 
@@ -1606,19 +1634,20 @@ heroImg.complete ? onLoad() : heroImg.addEventListener('load', onLoad);
 
 /* ── PARALLAX (MOUSE & SCROLL) ──────────────────────── */
 const scrollWrap = document.getElementById('scroll-wrap');
-const closingSection = document.getElementById('closing');
 let ticking = false;
 
 scrollWrap.addEventListener('scroll', () => {
   if (!ticking) {
     window.requestAnimationFrame(() => {
       const st = scrollWrap.scrollTop;
-      document.body.style.setProperty('--hero-sy', `${st * 0.4}px`);
-      
-      const rect = closingSection.getBoundingClientRect();
-      if (rect.top < window.innerHeight && rect.bottom > 0) {
-        const offset = (rect.top - window.innerHeight) * -0.25;
-        document.body.style.setProperty('--closing-sy', `${offset}px`);
+      document.documentElement.style.setProperty('--hero-sy', `${st * 0.4}px`);
+      const c = document.getElementById('closing');
+      if (c) {
+        const rect = c.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          const progress = 1 - (rect.bottom / (window.innerHeight + rect.height));
+          document.documentElement.style.setProperty('--closing-sy', `${progress * -100}px`);
+        }
       }
       ticking = false;
     });
@@ -1729,10 +1758,6 @@ const io = new IntersectionObserver(entries => {
   entries.forEach(e => {
     if (e.isIntersecting) {
       e.target.classList.add('vis');
-      // Special: closing sig-wrap
-      if (e.target.id === 'closing-sig-wrap') {
-        e.target.classList.add('vis');
-      }
       io.unobserve(e.target);
     }
   });
@@ -1743,36 +1768,30 @@ revEls.forEach(el => io.observe(el));
 /* ── RSVP FORM ──────────────────────────────────────── */
 const form     = document.getElementById('rsvp-form');
 const inpNome  = document.getElementById('inp-nome');
-const inpSob   = document.getElementById('inp-sob');
 const fNome    = document.getElementById('field-nome');
-const fSob     = document.getElementById('field-sob');
 const btnRsvp  = document.getElementById('btn-rsvp');
 
 function clearErr(field) { field.classList.remove('err'); }
 inpNome.addEventListener('input', () => clearErr(fNome));
-inpSob.addEventListener('input',  () => clearErr(fSob));
 
 form.addEventListener('submit', e => {
   e.preventDefault();
   fNome.classList.remove('err');
-  fSob.classList.remove('err');
   // Force reflow so shake animation retriggers
-  void fNome.offsetWidth; void fSob.offsetWidth;
+  void fNome.offsetWidth;
 
   let ok = true;
   if (!inpNome.value.trim()) { fNome.classList.add('err'); ok = false; }
-  if (!inpSob.value.trim())  { fSob.classList.add('err');  ok = false; }
   if (!ok) return;
 
   const nome = inpNome.value.trim();
-  const sob  = inpSob.value.trim();
 
   btnRsvp.classList.add('loading');
   btnRsvp.disabled = true;
   btnRsvp.querySelector('.btn-txt').textContent = 'Confirmando...';
 
   setTimeout(() => {
-    const msg = `Prezada Ludmila, aceito com honra o convite para integrar a Mesa de Honra da Solenidade de Colação de Grau da Turma de Estética e Cosmética 2026. Atenciosamente, ${nome} ${sob}`;
+    const msg = `Prezada Ludmila, aceito com honra o convite para integrar a Mesa de Honra da Solenidade de Colação de Grau da Turma de Estética e Cosmética 2026. Atenciosamente, ${nome}`;
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
 
     btnRsvp.classList.remove('loading');
@@ -1788,73 +1807,7 @@ form.addEventListener('submit', e => {
 });
 
 
-/* ── CLOSING CONFETTI ───────────────────────────────── */
-let confettiDone = false;
-function launchConfetti() {
-  if (confettiDone) return;
-  confettiDone = true;
 
-  const canvas = document.getElementById('closing-canvas');
-  const ctx    = canvas.getContext('2d');
-  let W, H, pts = [];
-
-  function resize() {
-    W = canvas.width  = window.innerWidth;
-    H = canvas.height = window.innerHeight;
-  }
-  resize();
-  window.addEventListener('resize', resize);
-
-  function mkPt() {
-    return {
-      x: Math.random() * W,
-      y: -10 - Math.random() * 40,
-      sz: Math.random() * 5.5 + 2.5,
-      vx: (Math.random() - 0.5) * 1.4,
-      vy: Math.random() * 2.2 + 1.2,
-      op: Math.random() * 0.5 + 0.5,
-      decay: Math.random() * 0.006 + 0.003,
-      shape: Math.random() > 0.45 ? 'circle' : 'diamond',
-      clr: Math.random() > 0.35 ? '#c9a84c' : '#e8d48a',
-    };
-  }
-
-  let frame = 0;
-  function draw() {
-    ctx.clearRect(0, 0, W, H);
-    if (frame < 180) { pts.push(mkPt()); if (frame < 90) pts.push(mkPt()); }
-    frame++;
-
-    pts = pts.filter(p => p.op > 0 && p.y < H + 30);
-
-    for (const p of pts) {
-      ctx.save();
-      ctx.globalAlpha = p.op;
-      ctx.fillStyle = p.clr;
-      ctx.translate(p.x, p.y);
-      if (p.shape === 'circle') {
-        ctx.beginPath();
-        ctx.arc(0, 0, p.sz / 2, 0, Math.PI*2);
-        ctx.fill();
-      } else {
-        ctx.rotate(Math.PI / 4);
-        ctx.fillRect(-p.sz/2, -p.sz/2, p.sz, p.sz);
-      }
-      ctx.restore();
-      p.x  += p.vx;
-      p.y  += p.vy;
-      p.vy += 0.04; // gravity
-      p.op -= p.decay;
-    }
-    requestAnimationFrame(draw);
-  }
-  draw();
-}
-
-const closingIo = new IntersectionObserver(entries => {
-  if (entries[0].isIntersecting) launchConfetti();
-}, { threshold: 0.25 });
-closingIo.observe(document.getElementById('closing'));
 
 
 /* ── SCROLL NAV INDICATOR ───────────────────────────── */
@@ -1872,42 +1825,6 @@ const navIo = new IntersectionObserver(entries => {
   });
 }, { threshold: 0.5 });
 sections.forEach(sec => navIo.observe(sec));
-
-/* ── AUDIO ──────────────────────────────────────────── */
-const audio    = document.getElementById('bg-audio');
-const audioBtn = document.getElementById('audio-btn');
-audio.src = AUDIO_SRC;
-let playing = false;
-
-function tryPlay() {
-  audio.play().then(() => {
-    playing = true;
-    audioBtn.textContent = '‖';
-    audioBtn.classList.remove('pulse');
-  }).catch(() => {
-    audioBtn.classList.add('pulse');
-  });
-}
-
-audioBtn.addEventListener('click', () => {
-  if (playing) {
-    audio.pause();
-    playing = false;
-    audioBtn.textContent = '♪';
-    audioBtn.classList.remove('pulse');
-  } else {
-    tryPlay();
-  }
-});
-
-// Trigger on first user gesture (mobile autoplay policy)
-const firstTouch = () => { if (!playing) tryPlay(); };
-document.addEventListener('touchstart', firstTouch, { once: true, passive: true });
-document.addEventListener('click', firstTouch, { once: true });
-
-// Attempt autoplay immediately
-window.addEventListener('load', tryPlay);
-tryPlay();
 
 /* ── HAMBURGER MENU & NAV ───────────────────────────── */
 const menuBtn = document.getElementById('menu-btn');
@@ -1949,6 +1866,122 @@ function scrollToRsvp(e) {
   if (rsvpSec) rsvpSec.scrollIntoView({ behavior: 'smooth' });
 }
 
+/* ── LEAVES ENCERRAMENTO ──────────────────────────── */
+const cvs = document.getElementById('closing-canvas');
+if (cvs) {
+  const ctx = cvs.getContext('2d');
+  let w, h;
+  const leaves = [];
+  const colors = ['#C9A84C', '#987B2E', '#102d1a', '#154526'];
+  let animationId;
+
+  function resizeClosing() {
+    w = cvs.width = window.innerWidth;
+    h = cvs.height = window.innerHeight;
+  }
+  window.addEventListener('resize', resizeClosing);
+  resizeClosing();
+
+  class Leaf {
+    constructor() {
+      this.x = Math.random() * w;
+      this.y = Math.random() * h - h;
+      this.size = Math.random() * 5 + 3;
+      this.speedY = Math.random() * 1.5 + 0.5;
+      this.speedX = Math.random() * 2 - 1;
+      this.color = colors[Math.floor(Math.random() * colors.length)];
+      this.angle = Math.random() * 360;
+      this.spin = Math.random() * 0.05 - 0.025;
+    }
+    update() {
+      this.y += this.speedY;
+      this.x += this.speedX + Math.sin(this.y * 0.01) * 0.5;
+      this.angle += this.spin;
+      if (this.y > h) {
+        this.y = -10;
+        this.x = Math.random() * w;
+      }
+    }
+    draw() {
+      ctx.save();
+      ctx.translate(this.x, this.y);
+      ctx.rotate(this.angle);
+      ctx.fillStyle = this.color;
+      ctx.globalAlpha = 0.6;
+      ctx.beginPath();
+      ctx.ellipse(0, 0, this.size, this.size / 2, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+  }
+  for(let i=0; i<45; i++) leaves.push(new Leaf());
+
+  function animateLeaves() {
+    ctx.clearRect(0, 0, w, h);
+    leaves.forEach(l => { l.update(); l.draw(); });
+    animationId = requestAnimationFrame(animateLeaves);
+  }
+
+  const closingSigIo = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('vis');
+        animateLeaves();
+        closingSigIo.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  const sigWrap = document.getElementById('closing-sig-wrap');
+  if(sigWrap) closingSigIo.observe(sigWrap);
+}
+
+/* ── MICRO-PARTICLES E ORNAMENTOS (GLOBAL) ──────────── */
+const svgString = `<svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M0,0 C80,0 120,40 180,120 M0,0 C0,80 40,120 120,180" /><path d="M60,20 C80,10 90,30 60,40 C40,50 30,30 60,20 Z" /><path d="M20,60 C10,80 30,90 40,60 C50,40 30,30 20,60 Z" /><path d="M100,50 C120,40 130,60 100,70 C80,80 70,60 100,50 Z" /><path d="M50,100 C40,120 60,130 70,100 C80,80 60,70 50,100 Z" /><path d="M140,90 C160,80 170,100 140,110 C120,120 110,100 140,90 Z" /><path d="M90,140 C80,160 100,170 110,140 C120,120 100,110 90,140 Z" /><circle cx="10" cy="10" r="4" fill="currentColor"/><circle cx="45" cy="45" r="2" fill="currentColor"/><circle cx="85" cy="85" r="2" fill="currentColor"/><circle cx="130" cy="130" r="2" fill="currentColor"/></svg>`;
+
+const allSections = document.querySelectorAll('section');
+allSections.forEach(sec => {
+  if (sec.id === 'splash') return;
+  
+  // Ornamentos
+  const svgTL = document.createElement('div');
+  svgTL.className = 'bg-ornament bg-ornament-tl';
+  svgTL.innerHTML = svgString;
+  sec.appendChild(svgTL);
+
+  const svgBR = document.createElement('div');
+  svgBR.className = 'bg-ornament bg-ornament-br';
+  svgBR.innerHTML = svgString;
+  sec.appendChild(svgBR);
+
+  // Vinheta
+  const vignette = document.createElement('div');
+  vignette.className = 'hero-vignette';
+  vignette.setAttribute('aria-hidden', 'true');
+  sec.appendChild(vignette);
+
+  // Partículas
+  for (let i = 0; i < 8; i++) {
+    const p = document.createElement('div');
+    p.className = 'micro-particle';
+    const isLeft = Math.random() > 0.5;
+    p.style.left = isLeft ? `${Math.random() * 15}%` : `${85 + Math.random() * 12}%`;
+    p.style.top = `${10 + Math.random() * 80}%`;
+    p.style.animationDelay = `${Math.random() * -20}s`;
+    p.style.animationDuration = `${15 + Math.random() * 10}s`;
+    sec.appendChild(p);
+  }
+
+  // Folhas
+  for (let i = 0; i < 4; i++) {
+    const l = document.createElement('div');
+    l.className = 'css-leaf';
+    l.style.left = `${Math.random() * 100}%`;
+    l.style.animationDelay = `${Math.random() * -20}s`;
+    l.style.animationDuration = `${18 + Math.random() * 15}s`;
+    sec.appendChild(l);
+  }
+});
 </script>
 </body>
 </html>

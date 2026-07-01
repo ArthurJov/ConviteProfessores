@@ -1,6 +1,6 @@
 # Convite de Formatura - Ludmila Paixão
 
-**Acesse o projeto online:** [https://arthurjov.github.io/ConviteFormatura/](https://arthurjov.github.io/ConviteFormatura/)
+**Acesse o projeto online:** [https://arthurjov.github.io/ConviteFormatura/](https://arthurjov.github.io/ConviteProfessores/)
 
 Bem-vindo(a) ao projeto do convite digital de formatura da Ludmila Paixão (Estética e Cosmética - 2026). Este site foi criado para ser um convite moderno, elegante e interativo, focado em entregar a melhor experiência para os convidados, especialmente pelo celular.
 
